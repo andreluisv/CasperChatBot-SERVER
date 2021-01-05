@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import news from './services/news.service';
+import chatbot from './services/chatbot.service'
 import mongoose from 'mongoose';
 
 const cors = require("cors");
@@ -18,13 +19,14 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname+"/public"));
 
-mongoose.connect(process.env.MONGO,
+mongoose.connect(process.env.MONGO, 
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
 app.use('/', news)
+app.use('/', chatbot)
 
 const server = app.listen(port,()=>{
     console.log("Server listening on "+port)
