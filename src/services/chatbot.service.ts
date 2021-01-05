@@ -21,8 +21,7 @@ chatbotService.post('/chatbot', async(req, res)=>{
                 {
                 "text": {
                     "text": [
-                        "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema.",
-                        "TODO callback quickreplies"
+                        "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema. (TODO -> call for quickreplies)"
                     ]
                 }
                 }
@@ -45,16 +44,42 @@ chatbotService.post('/chatbot', async(req, res)=>{
         }
       };
 
-    var response = {
+    var customElement = {
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png",
+    "default_action": {
+        "webview_height_ratio": "tall",
+        "url": "https://www.google.com/",
+        "type": "web_url"
+    },
+    "buttons": [
+        {
+        "title": "View Website",
+        "type": "web_url",
+        "url": "https://www.google.com/"
+        }
+    ],
+    "title": "Welcome!",
+    "subtitle": "We have the right hat for everyone."
+    };
+
+      var response = {
         "fulfillmentMessages": [
             {
-                "template_type":"generic",
-                "elements":[
-                    card, card, card
-                ]
+              "payload": {
+                "facebook": {
+                  "attachment": {
+                    "type": "template",
+                    "payload": {
+                      "elements": [customElement, customElement, customElement],
+                      "template_type": "generic"
+                    }
+                  }
+                }
+              },
+              "platform": "FACEBOOK"
             }
-        ]
-    }
+          ]
+      }
 
     res.json(response);
 })
