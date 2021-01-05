@@ -16,7 +16,7 @@ app.use(cors(corsOptions));
 app.use(express.json())
 app.use(bodyParser.json())
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname+"/public"));
 
 mongoose.connect(process.env.MONGO,
 {
