@@ -6,7 +6,6 @@ const rep = new NewsRepository();
 
 newsService.get('/news',async(req,res)=>{
     const {theme} = req.query;
-    console.log("query request");
     res.send({news: await rep.findNewsByTheme(theme)})
 })
 
