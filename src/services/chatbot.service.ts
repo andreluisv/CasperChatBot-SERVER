@@ -19,37 +19,14 @@ chatbotService.post('/chatbot', async (req, res) => {
         res.json({
             "fulfillmentMessages": [
                 {
-                    "text": {
-                        "text": [
-                            "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema."
+                    "quickReplies": {
+                        "title": "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema. Por favor, escolha outro.",
+                        "quickReplies": [
+                            "Esportes",
+                            "Política",
+                            "Entretenimento",
+                            "Famosos"
                         ]
-                    }
-                },
-                {
-                    "payload": {
-                        "facebook": {
-                            "attachment": {
-                                "type": "template",
-                                "payload": {
-                                    "elements": [
-                                        {"quick_replies": [
-                                            {
-                                              "content_type":"text",
-                                              "title":"Quick Reply 1",
-                                              "image_url":"https://raw.githubusercontent.com/fbsamples/messenger-platform-samples/master/images/Messenger_Icon.png",
-                                              "payload":"payload1"
-                                            },
-                                            {
-                                              "content_type":"text",
-                                              "title":"Quick Reply 2",
-                                              "payload":"payload2"
-                                            }
-                                          ]}
-                                    ],
-                                    "template_type": "generic"
-                                }
-                            }
-                        }
                     },
                     "platform": "FACEBOOK"
                 }
@@ -59,30 +36,30 @@ chatbotService.post('/chatbot', async (req, res) => {
     }
 
     //Bring random news from the collection
-    newsarr = newsarr.sort((a,b) => 0.5 - Math.random());
+    newsarr = newsarr.sort((a, b) => 0.5 - Math.random());
     //Limit news to 10
-    arrsz = arrsz>10 ? 10 : arrsz;
+    arrsz = arrsz > 10 ? 10 : arrsz;
 
     var elementsArray = [];
 
-    for (let i = 0; i < arrsz; i++){
+    for (let i = 0; i < arrsz; i++) {
         const news = newsarr[i];
         elementsArray.push({
-            "image_url": news["img_url"]||"",
+            "image_url": news["img_url"] || "",
             "default_action": {
                 "webview_height_ratio": "tall",
-                "url": news["link"]||"",
+                "url": news["link"] || "",
                 "type": "web_url"
             },
             "buttons": [
                 {
                     "title": "Saiba mais",
                     "type": "web_url",
-                    "url": news["link"]||""
+                    "url": news["link"] || ""
                 }
             ],
-            "title": news["title"]||"",
-            "subtitle": news["description"]||""
+            "title": news["title"] || "",
+            "subtitle": news["description"] || ""
         });
     }
 
