@@ -21,9 +21,37 @@ chatbotService.post('/chatbot', async (req, res) => {
                 {
                     "text": {
                         "text": [
-                            "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema. (TODO -> call for quickreplies)"
+                            "Desculpe-me, mas não encontrei nenhuma notícia sobre esse tema."
                         ]
                     }
+                },
+                {
+                    "payload": {
+                        "facebook": {
+                            "attachment": {
+                                "type": "template",
+                                "payload": {
+                                    "elements": [
+                                        {"quick_replies": [
+                                            {
+                                              "content_type":"text",
+                                              "title":"Quick Reply 1",
+                                              "image_url":"https://raw.githubusercontent.com/fbsamples/messenger-platform-samples/master/images/Messenger_Icon.png",
+                                              "payload":"payload1"
+                                            },
+                                            {
+                                              "content_type":"text",
+                                              "title":"Quick Reply 2",
+                                              "payload":"payload2"
+                                            }
+                                          ]}
+                                    ],
+                                    "template_type": "generic"
+                                }
+                            }
+                        }
+                    },
+                    "platform": "FACEBOOK"
                 }
             ]
         })
